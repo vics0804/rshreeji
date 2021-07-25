@@ -1,0 +1,158 @@
+﻿@using RShreeji.Models.Common;
+@inject Microsoft.Extensions.Options.IOptions<SystemSettings> SysSetting
+@{
+    string strPagePath = Context.Request.Path;
+
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="keywords" content="@SysSetting.Value.appFullName, Masala, Gruh Udhyog, Gruh Udyog, Jaspur, Jaspur Road, Umiya Dham, Nageshwar Farm, Ahmedabad, Gandhinagar, Jitubhai Prajapati @ViewData["MetaKeywords"]" />
+    <meta name="description" content="@SysSetting.Value.appFullName - @SysSetting.Value.Address.fulladdress. Masala available. Spices and Herbs avaialable. દેશી મરચું, Desi Chili, તેજા મરચું, Teja Chili, કાશ્મીરી ડબ્બી મરચું, Kashmiri Dabbi Chilli, રેશમ પટ્ટો મરચું, Reshampatti Chilli, હળદર, Turmeric, ધાણા-જીરું મસાલા વાળું, Coriander-Cumin with Masala, ધાણા-જીરું મસાલા સાદુ, Coriander-Cumin without Masala, ગરમ મસાલો, Garam Masala, હિંગ, Asafoetida, રઈ ખમણી, Black Mustard seed, ધાણી આખી, Coriander, જીરું, Cumin, મેથી, Fenugreek, Jitubhai Prajapati, @ViewData["MetaDescription"]" />
+    <title>@ViewData["Title"]</title>
+    @*<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />*@
+
+    <!-- Favicon -->
+    <link href="~/img/favicon.ico" rel="icon">
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- CSS Libraries -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="~/lib/animate/animate.min.css" rel="stylesheet" />
+    <link href="~/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet" />
+    <link href="~/lib/lightbox/css/lightbox.min.css" rel="stylesheet" />
+
+    <!-- Template Stylesheet -->
+    <link href="~/css/style.css" rel="stylesheet" />
+
+    <script>
+        function loanNoImage(objThis, useOtherSize) {
+            if (useOtherSize == "" || useOtherSize == undefined) {
+                objThis.src = "@(FieldNames.ImageFolder + SysSetting.Value.noimg)";
+            }
+            else if (useOtherSize == 1) {
+                objThis.src = "@(FieldNames.ImageFolder + SysSetting.Value.noimg1)";
+            }
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <!-- Top Bar Start -->
+        <div class="top-bar d-none d-md-block">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="top-bar-left">
+                            <div class="text">
+                                <i class="far fa-clock"></i>
+                                @Html.Raw(SysSetting.Value.availableTime)
+                            </div>
+                            <div class="text">
+                                <i class="fa fa-phone-alt"></i>
+                                <h2><a class="top-bar-mobile" href="tel:@SysSetting.Value.mobile">@SysSetting.Value.mobile</a> </h2>
+                                <!--<p>For Appointment</p>-->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="top-bar-right">
+                            <div class="social">
+                                <!--<a href=""><i class="fab fa-twitter"></i></a>-->
+                                <a href="@SysSetting.Value.SocialMedia.facebook" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                                <!--<a href=""><i class="fab fa-linkedin-in"></i></a>-->
+                                <a href="@SysSetting.Value.SocialMedia.instagram" target="_blank"><i class="fab fa-instagram"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Top Bar End -->
+        <!-- Nav Bar Start -->
+        <div class="navbar navbar-expand-lg bg-dark navbar-dark">
+            <div class="container-fluid">
+                <a asp-controller="Home" asp-action="Index" class="navbar-brand">@Html.Raw(SysSetting.Value.appShortNameSpan)</a>
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                    <div class="navbar-nav ml-auto">
+                        <a asp-controller="Home" asp-action="Index" class="nav-item nav-link @(clsCommonFunction.CheckForCurrentPage(strPagePath, "Home", "Index") ? "active" : "")">Home</a>
+                        <a asp-controller="Products" asp-action="Index" class="nav-item nav-link @(clsCommonFunction.CheckForCurrentPage(strPagePath, "Products", "Index") ? "active" : "")">Products</a>
+                        <a asp-controller="Gallery" asp-action="Index" class="nav-item nav-link @(clsCommonFunction.CheckForCurrentPage(strPagePath, "Gallery", "Index") ? "active" : "")">Gallery</a>
+                        <a asp-controller="ContactUs" asp-action="Index" class="nav-item nav-link @(clsCommonFunction.CheckForCurrentPage(strPagePath, "ContactUs", "Index") ? "active" : "")">Contact Us</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Nav Bar End -->
+    </header>
+    @*<div class="container">*@
+    <div>
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    @*<footer class="border-top footer text-muted">*@
+    <footer>
+        <!-- Footer Start -->
+        <div class="footer wow fadeIn" data-wow-delay="0.3s">
+            <div class="container-fluid">
+                <div class="container">
+                    <div class="footer-info">
+                        <p class="footer-logo">@Html.Raw(SysSetting.Value.appFullNameSpan)</p>
+                        <h3>@SysSetting.Value.Address.fulladdress</h3>
+                        <div class="footer-menu">
+                            <p><a class="footer-mobile" href="tel:@SysSetting.Value.mobile">@SysSetting.Value.mobile</a></p>
+                            <p><a class="footer-mobile" href="mailto:@SysSetting.Value.email">@SysSetting.Value.email</a></p>
+                        </div>
+                        <div class="footer-social">
+                            @*<a href=""><i class="fab fa-twitter"></i></a>*@
+                            <a href="@SysSetting.Value.SocialMedia.facebook" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                            @*<a href=""><i class="fab fa-youtube"></i></a>*@
+                            <a href="@SysSetting.Value.SocialMedia.instagram" target="_blank"><i class="fab fa-instagram"></i></a>
+                            @*<a href=""><i class="fab fa-linkedin-in"></i></a>*@
+                        </div>
+                    </div>
+                </div>
+                <div class="container copyright">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p>&copy; <a asp-controller="Home" asp-action="Index">@SysSetting.Value.appFullName</a>, All Right Reserved.</p>
+                        </div>
+                        <div class="col-md-6">
+                            <p>@SysSetting.Value.developer</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Footer End -->
+
+        <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
+    </footer>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/easing/easing.min.js"></script>
+    <script src="~/lib/wow/wow.min.js"></script>
+    <script src="~/lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="~/lib/isotope/isotope.pkgd.min.js"></script>
+    <script src="~/lib/lightbox/js/lightbox.min.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="~/js/main.js" asp-append-version="false"></script>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

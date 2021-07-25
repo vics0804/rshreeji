@@ -1,0 +1,136 @@
+﻿@model RShreeji.ViewModels.clsProductsViewModel
+@inject Microsoft.Extensions.Options.IOptions<SystemSettings> SysSetting
+@using RShreeji.Models.Common;
+@{
+    ViewData["Title"] = SysSetting.Value.appFullName;
+    ViewData["MetaKeywords"] = "";
+    ViewData["MetaDescription"] = "";
+}
+
+<!-- Hero Start -->
+<div class="hero">
+    <div class="container-fluid">
+        <div class="row align-items-center hero-row">
+            <div class="col-sm-12 col-md-6 dv-hero-text">
+                <div class="hero-text">
+                    <h1>@SysSetting.Value.appFullName</h1>
+                    <p>
+                        A place where all you kitchen needs meet to end!
+                    </p>
+                    <div class="hero-btn">
+                        <a class="btn" asp-controller="Products" asp-action="Index">View Products</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-6 dv-hero-image">
+                <div class="hero-image">
+                    <img src="~/img/logo3.png" alt="Hero Image">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Hero End -->
+<!-- About Start -->
+<div class="about wow fadeInUp" data-wow-delay="0.1s">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-5 col-md-6">
+                <div class="about-img">
+                    <img src="~/img/chilli-big2.png" alt="Image" onerror="loanNoImage(this);">
+                </div>
+            </div>
+            <div class="col-lg-7 col-md-6">
+                <div class="section-header text-left">
+                    <p>Learn About Us</p>
+                    <h2>Welcome to @SysSetting.Value.appFullName</h2>
+                </div>
+                <div class="about-text">
+                    <p>
+                        We process and pack to deliver the most authentic and natural flavour. We are also farming chillies in our own farm.
+                    </p>
+                    <p>
+                        That’s why home chefs who have a taste for flavour adventure and everyday cooks who just want tasty meals fill their kitchen cabinet with masalas from @SysSetting.Value.appFullName.
+                    </p>
+                    <a class="btn" asp-controller="ContactUs" asp-action="Index">Contact Us</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- About End -->
+<!-- Peek at Products Start -->
+@if (Model?.Products?.Count > 0)
+{
+    <div class="blog">
+        <div class="container">
+            <div class="section-header text-center wow zoomIn" data-wow-delay="0.1s">
+                <p>Swaad Se Samjhota Kyu?</p>
+                <h2>A Peek At Our Products</h2>
+            </div>
+            <div class="owl-carousel blog-carousel wow fadeInUp" data-wow-delay="0.1s">
+                @foreach (var itemProd in Model.Products)
+                {
+                    <div class="blog-item">
+                        <div class="blog-img">
+                            <img src="@(FieldNames.ImageFolder+ itemProd.imgpath)" alt="@itemProd.description" onerror="loanNoImage(this, 1);">
+                        </div>
+                        <div class="blog-text">
+                            <h2>@itemProd.description</h2>
+                            <div class="blog-meta">
+                                <p><i class="far fa-list-alt"></i>@itemProd.subdescription</p>
+                            </div>
+                            <a class="btn" asp-controller="Products" asp-action="Index">View All Products <i class="fa fa-angle-right"></i></a>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+}
+<!-- Peek at Products End -->
+<!-- Intro Start -->
+<div class="discount wow zoomIn" data-wow-delay="0.1s">
+    <div class="container">
+        <div class="section-header text-center">
+            <p>Feel it by yourself</p>
+            <h2>Vegetables, Herbs and <span>@SysSetting.Value.appShortName's Masala</span>, if you can combine these ingredients, that would be the best dish you'd ever cook!</h2>
+        </div>
+        <div class="container discount-text">
+            <p>All those spices and herbs in your spice rack can do more than provide calorie-free, natural flavorings to enhance and make food delicious.</p>
+            <p>They're also an incredible source of antioxidants and help rev up your metabolism and improve your health at the same time.</p>
+            <p>Store spices in a cool, dark place, not above your stove. Humidity, light and heat will cause herbs and spices to lose their flavor.</p>
+            <a class="btn">View Products</a>
+        </div>
+    </div>
+</div>
+<!-- Intro End -->
+<!-- MasalaBenefits Start -->
+@if (Model?.MasalaBenefits?.Count > 0)
+{
+    int intI = 0;
+    <div class="service">
+        <div class="container">
+            <div class="section-header text-center wow zoomIn" data-wow-delay="0.1s">
+                <p>What we achieve</p>
+                <h2>Some Benefits of Masala</h2>
+            </div>
+            <div class="row">
+                @foreach (var itemMasala in Model.MasalaBenefits)
+                {
+                    intI++;
+                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.0s">
+                        <div class="service-item">
+                            <div class="service-icon">
+                                <img src="@(FieldNames.ImageFolder + itemMasala.imgpath)" alt="@itemMasala.description" onerror="loanNoImage(this);" />
+                            </div>
+                            <h3>@itemMasala.description</h3>
+                            <p>@itemMasala.subdescription</p>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+}
+<!-- MasalaBenefits End -->

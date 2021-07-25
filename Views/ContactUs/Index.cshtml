@@ -1,0 +1,87 @@
+﻿@inject Microsoft.Extensions.Options.IOptions<SystemSettings> SysSetting
+@{
+    ViewData["Title"] = SysSetting.Value.appShortName + " - Contact Us";
+    ViewData["MetaKeywords"] = "";
+    ViewData["MetaDescription"] = "";
+}
+
+<!-- Page Header Start -->
+<div class="page-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h2>Contact Us</h2>
+            </div>
+            <div class="col-12">
+                <p>
+                    We are also grinding spices (Masala) at wholesale price.<br />
+                    Jo apno se kare pyaar - wo kaise kare unki heath se khilwaad!<br />
+                    Feel free to reach out.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Page Header End -->
+<!-- Logo Start -->
+<div class="container">
+    <div class="row align-content-center">
+        <div class="col-lg-4 col-md-3 col-2">&nbsp;</div>
+        <div class="col-lg-4 col-md-6 col-8">
+            <img src="~/img/logo3.png" alt="@SysSetting.Value.appFullName" class=" w-100" />
+        </div>
+        <div class="col-lg-4 col-md-3 col-2">&nbsp;</div>
+    </div>
+</div>
+<!-- Logo End -->
+<!-- Contact Start -->
+<div class="contact">
+    <div class="container">
+        <div class="section-header text-center wow zoomIn" data-wow-delay="0.1s">
+            <p>Get In Touch</p>
+            <h2>For Any Query</h2>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="row">
+                    <div class="col-md-4 contact-item wow zoomIn" data-wow-delay="0.2s">
+                        <i class="fa fa-map-marker-alt"></i>
+                        <div class="contact-text">
+                            <h2>Location</h2>
+                            <p>@SysSetting.Value.Address.fulladdress</p>
+                            <a href="@SysSetting.Value.mapUrl" target="_blank">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="17.961" height="17" viewBox="0 0 17.961 17">
+                                    <g id="get-directions-button" transform="translate(.001 .001)">
+                                        <g id="directions" transform="translate(0 -.001)">
+                                            <path d="M17.692 7.9L9.609.254a.9.9 0 0 0-1.257 0L.269 7.9a.792.792 0 0 0 0 1.19l8.083 7.65a.9.9 0 0 0 1.257 0l8.083-7.65a.792.792 0 0 0 0-1.19zm-6.915 2.72V8.5H7.185v2.55h-1.8v-3.4a.827.827 0 0 1 .9-.85h4.49V4.674l3.145 2.975z" fill="#589ee9" data-name="Path 986" transform="translate(0 .001)"></path>
+                                        </g>
+                                    </g>
+                                </svg>
+                                Get Directions
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-md-4 contact-item wow zoomIn" data-wow-delay="0.4s">
+                        <i class="fa fa-phone-alt"></i>
+                        <div class="contact-text">
+                            <h2>Phone</h2>
+                            <p>
+                                <a href="tel:@SysSetting.Value.mobile">@SysSetting.Value.mobile</a><br />
+                                Jitubhai Prajapati
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 contact-item wow zoomIn" data-wow-delay="0.6s">
+                        <i class="far fa-envelope"></i>
+                        <div class="contact-text">
+                            <h2>Email</h2>
+                            <p><a href="mailto:@SysSetting.Value.email">@SysSetting.Value.email</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- Contact End -->

@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "yhpZUORHH+JD42TG1krJ5vwZQLwYrT7z2+R4XmyiyyH+gOtyCvOr+brwU4PKvWCzfy830L/16464b7cgc2yZoA==",
+  "success": true,
+  "projectFilePath": "D:\\zDownload\\AtulProject\\RShreeji\\RShreeji.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Black Viper\\.nuget\\packages\\microsoft.netcore.app.runtime.linux-x64\\3.1.14\\microsoft.netcore.app.runtime.linux-x64.3.1.14.nupkg.sha512",
+    "C:\\Users\\Black Viper\\.nuget\\packages\\microsoft.aspnetcore.app.runtime.linux-x64\\3.1.14\\microsoft.aspnetcore.app.runtime.linux-x64.3.1.14.nupkg.sha512",
+    "C:\\Users\\Black Viper\\.nuget\\packages\\microsoft.netcore.app.host.linux-x64\\3.1.14\\microsoft.netcore.app.host.linux-x64.3.1.14.nupkg.sha512"
+  ],
+  "logs": []
+}
