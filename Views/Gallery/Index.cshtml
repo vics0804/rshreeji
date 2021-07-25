@@ -5,7 +5,7 @@
     ViewData["Title"] = SysSetting.Value.appShortName + " - Gallery";
     ViewData["MetaKeywords"] = "";
     ViewData["MetaDescription"] = "";
-
+    string strGalleryJson = ViewBag.GalleryJson;
 }
 
 
@@ -28,45 +28,50 @@
     <div class="container">
         <div class="section-header text-center wow zoomIn" data-wow-delay="0.1s">
             <p>Photos</p>
-            <h2>Awesome Pose</h2>
+            <h2>Awesome </h2>
         </div>
-        @if (Model?.Count > 0)
-        {
-            var lstCategory = Model.Select(a => new { a.classname, a.classdescription }).Distinct().ToList();
-            <div class="row">
-                <div class="col-12">
-                    <ul id="portfolio-filter">
-                        <li data-filter="*" class="filter-active all-photos-filter">All Photos</li>
-                        @foreach (var itemCategory in lstCategory)
-                        {
-                            <li data-filter=".@itemCategory.classname">@itemCategory.classdescription</li>
-                        }
-                    </ul>
-                </div>
-            </div>
-            <div class="row portfolio-container">
-                @foreach (var itemPic in Model)
-                {
-                    <div class="col-lg-4 col-md-6 col-sm-12 portfolio-item @itemPic.classname wow fadeInUp" data-wow-delay="0.1s">
-                        <div class="portfolio-wrap">
-                            <a href="@(FieldNames.ImageFolder + itemPic.imgpath)" data-lightbox="portfolio">
-                                <img src="@(FieldNames.ImageFolder + itemPic.thumbimgpath)" alt="@itemPic.description" class="" onerror="loanNoImage(this);">
-                            </a>
-                            @*<p>@(FieldNames.ImageFolder + itemPic.thumbimgpath)</p>*@
-                        </div>
+        <div id="divGallery">
+            @if (Model?.Count > 0)
+            {
+                //var lstCategory = Model.Select(a => new { a.classname, a.classdescription }).Distinct().ToList();
+                <div class="row">
+                    <div class="col-12">
+                        <ul id="portfolio-filter">
+                            <li data-filter="*" class="filter-active all-photos-filter">All Photos</li>
+                            @*@foreach (var itemCategory in lstCategory)
+                            {
+                                <li data-filter=".@itemCategory.classname">@itemCategory.classdescription</li>
+                            }*@
+                        </ul>
                     </div>
-                }
-            </div>
-        }
+                </div>
+                <div class="row portfolio-container">
+                    @*@foreach (var itemPic in Model)
+                    {
+                        <div class="col-lg-4 col-md-6 col-sm-12 portfolio-item @itemPic.classname wow fadeInUp" data-wow-delay="0.1s">
+                            <div class="portfolio-wrap">
+                                <a href="@(FieldNames.ImageFolder + itemPic.imgpath)" data-lightbox="portfolio">
+                                    <img src="@(FieldNames.ImageFolder + itemPic.thumbimgpath)" alt="@itemPic.description" class="" onerror="loanNoImage(this);">
+                                </a>
+                            </div>
+                        </div>
+                    }*@
+                </div>
+            }
+        </div>
     </div>
 </div>
 <!-- Portfolio Start -->
 
-@section Scripts
+@section ScriptsBottom
 {
     <script>
-        $(window).on("load", function () {
-            $(".all-photos-filter").trigger("click");
+        //$(window).on("load", function () {
+        //    $(".all-photos-filter").trigger("click");
+        //});
+
+        $(document).ready(function () {
+            loadGallery('@strGalleryJson');
         });
     </script>
 }
