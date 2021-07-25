@@ -29,6 +29,8 @@ namespace RShreeji.Controllers
                 lstProducts = lstProducts.OrderBy(a => a.sortorder ?? 999).ToList();
             }
 
+            ViewBag.GalleryJson = jsonString;
+
             return View(lstProducts);
         }
     }
