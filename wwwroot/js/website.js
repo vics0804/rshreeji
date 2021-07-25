@@ -11,11 +11,11 @@ const GetUniqueArray = (arr, props = []) => [...new Map(arr.map(entry => [props.
  * @param {string} input - HTML Encoded string
  */
 function htmlDecode(input) {
-    var DecodeTextArea = $('<textarea id="txtDecode" style="display: none;" />');
+    let DecodeTextArea = $('<textarea id="txtDecode" style="display: none;" />');
     DecodeTextArea.html(input);
     $("body").append(DecodeTextArea);
 
-    var returnResult = $("#txtDecode").val();
+    let returnResult = $("#txtDecode").val();
     $("#txtDecode").remove();
 
     return returnResult;
@@ -30,20 +30,27 @@ function GetThumbImgPath(originalImgPath) {
 }
 
 /**
- * This function is used to get JSON object from encoded json string
- * @param {string} encodedStrJson - Encoded Json in string format
+ * This function is used to get sorted JSON Array
+ * @param {Array} objJson - Json Array
  * @param {string} sortDirection - "ASC" or "DESC"
  */
-function GetJsonFromStringVariable(encodedStrJson, sortDirection) {
+function GetSortedJson(objJson, sortDirection) {
+    if (sortDirection == "ASC") { objJson.sort(function (a, b) { return a.sortorder - b.sortorder; }); }
+    else if (sortDirection == "DESC") { objJson.sort(function (a, b) { return a.sortorder - b.sortorder; }).reverse(); }
+
+    return objJson;
+}
+
+/**
+ * This function is used to get JSON object from encoded json string
+ * @param {string} encodedStrJson - Encoded Json in string format
+ */
+function GetJsonFromStringVariable(encodedStrJson) {
     let decodedStr = htmlDecode(encodedStrJson);
 
     if ($.trim(decodedStr) != "") {
         // get json
         let decodedJson = JSON.parse('{"jsonbody":' + decodedStr + '}').jsonbody;
-
-        // sort json
-        if (sortDirection == "ASC") { decodedJson.sort(function (a, b) { return a.sortorder - b.sortorder; }); }
-        else if (sortDirection == "DESC") { decodedJson.sort(function (a, b) { return a.sortorder - b.sortorder; }).reverse(); }
 
         return decodedJson;
     }
@@ -51,11 +58,13 @@ function GetJsonFromStringVariable(encodedStrJson, sortDirection) {
 
 /**
  * This function is used to load PRODUCTS in Products page
- * @param {string} encodedProductJson - Encoded Products JSON
+ * @param {object} ProductJSON - Products JSON Array
  */
-function loadProducts(encodedProductJson) {
-    let ProductJSON = GetJsonFromStringVariable(encodedProductJson, "ASC");
+function loadProducts(ProductJSON) {
     if ($.trim(ProductJSON) != "") {
+        // sort JSON
+        ProductJSON = GetSortedJson(ProductJSON, "ASC");
+
         // convert json to HTML and append in page
         $(ProductJSON).each(function (index, elem) {
             $("#divProducts").append(
@@ -78,13 +87,32 @@ function loadProducts(encodedProductJson) {
 }
 
 /**
- * This function is used to Gallery section in Gallery page
- * @param {string} encodedGalleryJson - Encoded Gallery JSON
+ * This function is used to load PRODUCTS in Products page
+ * @param {string} encodedProductJson - Encoded Products JSON
  */
-function loadGallery(encodedGalleryJson) {
-    debugger;
-    let GalleryJSON = GetJsonFromStringVariable(encodedGalleryJson, "DESC");
+function loadProductsWithJsonString(encodedProductJson) {
+    let ProductJSON = GetJsonFromStringVariable(encodedProductJson, "ASC");
+    loadProducts(ProductJSON);
+}
+
+/**
+ * This function is used to load PRODUCTS in Products page
+ */
+function loadProductsFromFile() {
+    $.getJSON("json/products.json", function (json) {
+        loadProducts(json);
+    });
+}
+
+/**
+ * This function is used to Gallery section in Gallery page
+ * @param {object} GalleryJSON - Gallery JSON Array
+ */
+function loadGallery(GalleryJSON) {
     if ($.trim(GalleryJSON) != "") {
+        // sort JSON
+        GalleryJSON = GetSortedJson(GalleryJSON, "DESC");
+
         // convert json to HTML and append in page
         // Add Filters
         let GalleryFilterJSON = GetUniqueArray(GalleryJSON, ["classname", "classdescription"]);
@@ -126,12 +154,32 @@ function loadGallery(encodedGalleryJson) {
 }
 
 /**
- * This function is used to load MASALA BENEFIT in Home page
- * @param {string} encodedMasalaBenefitJson - Encoded Masala Benefit JSON
+ * This function is used to Gallery section in Gallery page
+ * @param {string} encodedGalleryJson - Encoded Gallery JSON
  */
-function loadMasalaBenefits(encodedMasalaBenefitJson) {
-    let MasalaBenefitJSON = GetJsonFromStringVariable(encodedMasalaBenefitJson, "ASC");
+function loadGalleryWithJsonString(encodedGalleryJson) {
+    let GalleryJSON = GetJsonFromStringVariable(encodedGalleryJson);
+    loadGallery(GalleryJSON);
+}
+
+/**
+ * This function is used to Gallery section in Gallery page
+ */
+function loadGalleryFromFile() {
+    $.getJSON("json/gallery.json", function (json) {
+        loadGallery(json);
+    });
+}
+
+/**
+ * This function is used to load MASALA BENEFIT in Home page
+ * @param {object} MasalaBenefitJSON - Masala Benefit JSON Array
+ */
+function loadMasalaBenefits(MasalaBenefitJSON) {
     if ($.trim(MasalaBenefitJSON) != "") {
+        // sort JSON
+        MasalaBenefitJSON = GetSortedJson(MasalaBenefitJSON, "ASC");
+
         // convert json to HTML and append in page
         $(MasalaBenefitJSON).each(function (index, elem) {
             $("#divMasalaBenefits").append(
@@ -152,12 +200,32 @@ function loadMasalaBenefits(encodedMasalaBenefitJson) {
 }
 
 /**
- * This function is used to load PRODUCTS in Home page
- * @param {string} encodedHomeProductsJson - Encoded Home Products JSON
+ * This function is used to load MASALA BENEFIT in Home page
+ * @param {string} encodedMasalaBenefitJson - Encoded Masala Benefit JSON
  */
-function loadHomeProducts(encodedHomeProductsJson) {
-    let HomeProductsJSON = GetJsonFromStringVariable(encodedHomeProductsJson, "ASC");
+function loadMasalaBenefitsWithJsonString(encodedMasalaBenefitJson) {
+    let MasalaBenefitsJSON = GetJsonFromStringVariable(encodedMasalaBenefitJson);
+    loadMasalaBenefits(MasalaBenefitsJSON);
+}
+
+/**
+ * This function is used to load MASALA BENEFIT in Home page
+ */
+function loadMasalaBenefitsFromFile() {
+    $.getJSON("json/masala-benefits.json", function (json) {
+        loadMasalaBenefits(json);
+    });
+}
+
+/**
+ * This function is used to load PRODUCTS in Home page
+ * @param {object} HomeProductsJSON - Home Products JSON Array
+ */
+function loadHomeProducts(HomeProductsJSON) {
     if ($.trim(HomeProductsJSON) != "") {
+        // sort JSON
+        HomeProductsJSON = GetSortedJson(HomeProductsJSON, "ASC");
+
         // convert json to HTML and append in page
         $.when(
             $(HomeProductsJSON).each(function (index, elem) {
@@ -211,4 +279,22 @@ function loadHomeProducts(encodedHomeProductsJson) {
             })
         });
     }
+}
+
+/**
+ * This function is used to load PRODUCTS in Home page
+ * @param {string} encodedHomeProductsJson - Encoded Home Products JSON
+ */
+function loadHomeProductsWithJsonString(encodedHomeProductsJson) {
+    let HomeProductsJSON = GetJsonFromStringVariable(encodedHomeProductsJson);
+    loadHomeProducts(HomeProductsJSON);
+}
+
+/**
+ * This function is used to load PRODUCTS in Home page
+ */
+function loadHomeProductsFromFile() {
+    $.getJSON("json/home-products.json", function (json) {
+        loadHomeProducts(json);
+    });
 }

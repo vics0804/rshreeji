@@ -145,8 +145,10 @@
     <script>
 
         $(document).ready(function () {
-            loadMasalaBenefits('@strMasalaBenefitsJson');
-            loadHomeProducts('@strHomeProductsJson');
+            @*loadMasalaBenefitsWithJsonString('@strMasalaBenefitsJson');
+            loadHomeProductsWithJsonString('@strHomeProductsJson');*@
+            loadMasalaBenefitsFromFile();
+            loadHomeProductsFromFile();
         });
 
     </script>
