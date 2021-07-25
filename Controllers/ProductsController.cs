@@ -28,6 +28,8 @@ namespace RShreeji.Controllers
                 lstProducts = lstProducts.OrderBy(a => a.sortorder ?? 999).ToList();
             }
 
+            ViewBag.ProductsJson = jsonString;
+
             return View(lstProducts);
         }
     }

@@ -5,7 +5,7 @@
     ViewData["Title"] = SysSetting.Value.appShortName + " - Products";
     ViewData["MetaKeywords"] = "";
     ViewData["MetaDescription"] = "";
-
+    string strProductsJson = ViewBag.ProductsJson;
 }
 
 <!-- Page Header Start -->
@@ -31,26 +31,33 @@
                 <p>Specialities</p>
                 <h2>Our Handiwork</h2>
             </div>
-            <div class="row">
-                @foreach (var item in Model)
-                {
-                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.0s">
-                        <div class="team-item px-0 pt-0">
-                            <div class="team-img">
-                                @*<img src="@(FieldNames.ImageFolder + item.imgpath)" alt="@item.description" onerror="loanNoImage(this);">*@
-                                <img src="@(FieldNames.ImageFolder + item.thumbimgpath)" alt="@item.description" onerror="loanNoImage(this);">
-                            </div>
-                            <div class="team-text">
-                                <h2>@item.description</h2>
-                                <p>@item.subdescription</p>
-                                @*<p>@(FieldNames.ImageFolder + item.imgpath)</p>
-                                <p>@(FieldNames.ImageFolder + item.thumbimgpath)</p>*@
+            <div class="row" id="divProducts">
+                @*@foreach (var item in Model)
+                    {
+                        <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.0s">
+                            <div class="team-item px-0 pt-0">
+                                <div class="team-img">
+                                    <img src="@(FieldNames.ImageFolder + item.thumbimgpath)" alt="@item.description" onerror="loanNoImage(this);">
+                                </div>
+                                <div class="team-text">
+                                    <h2>@item.description</h2>
+                                    <p>@item.subdescription</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                }
+                    }*@
             </div>
         </div>
     </div>
     <!-- Team End -->
+}
+
+@section ScriptsBottom {
+    <script>
+
+        $(document).ready(function () {
+            loadProducts('@strProductsJson');
+        });
+
+    </script>
 }
