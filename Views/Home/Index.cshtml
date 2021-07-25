@@ -5,6 +5,14 @@
     ViewData["Title"] = SysSetting.Value.appFullName;
     ViewData["MetaKeywords"] = "";
     ViewData["MetaDescription"] = "";
+    string strMasalaBenefitsJson = ViewBag.MasalaBenefitsJson;
+    string strHomeProductsJson = ViewBag.HomeProductsJson;
+}
+
+@section ScriptsHead {
+    <script>
+        var ProductsUrl = '@Url.Action("Index", "Products")';
+    </script>
 }
 
 <!-- Hero Start -->
@@ -68,22 +76,22 @@
                 <p>Swaad Se Samjhota Kyu?</p>
                 <h2>A Peek At Our Products</h2>
             </div>
-            <div class="owl-carousel blog-carousel wow fadeInUp" data-wow-delay="0.1s">
-                @foreach (var itemProd in Model.Products)
-                {
-                    <div class="blog-item">
-                        <div class="blog-img">
-                            <img src="@(FieldNames.ImageFolder+ itemProd.imgpath)" alt="@itemProd.description" onerror="loanNoImage(this, 1);">
-                        </div>
-                        <div class="blog-text">
-                            <h2>@itemProd.description</h2>
-                            <div class="blog-meta">
-                                <p><i class="far fa-list-alt"></i>@itemProd.subdescription</p>
+            <div class="owl-carousel blog-carousel wow fadeInUp" data-wow-delay="0.1s" id="divHomeProducts">
+                @*@foreach (var itemProd in Model.Products)
+                    {
+                        <div class="blog-item">
+                            <div class="blog-img">
+                                <img src="@(FieldNames.ImageFolder+ itemProd.imgpath)" alt="@itemProd.description" onerror="loanNoImage(this, 1);">
                             </div>
-                            <a class="btn" asp-controller="Products" asp-action="Index">View All Products <i class="fa fa-angle-right"></i></a>
+                            <div class="blog-text">
+                                <h2>@itemProd.description</h2>
+                                <div class="blog-meta">
+                                    <p><i class="far fa-list-alt"></i>@itemProd.subdescription</p>
+                                </div>
+                                <a class="btn" asp-controller="Products" asp-action="Index">View All Products <i class="fa fa-angle-right"></i></a>
+                            </div>
                         </div>
-                    </div>
-                }
+                    }*@
             </div>
         </div>
     </div>
@@ -108,29 +116,38 @@
 <!-- MasalaBenefits Start -->
 @if (Model?.MasalaBenefits?.Count > 0)
 {
-    int intI = 0;
     <div class="service">
         <div class="container">
             <div class="section-header text-center wow zoomIn" data-wow-delay="0.1s">
                 <p>What we achieve</p>
                 <h2>Some Benefits of Masala</h2>
             </div>
-            <div class="row">
-                @foreach (var itemMasala in Model.MasalaBenefits)
-                {
-                    intI++;
-                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.0s">
-                        <div class="service-item">
-                            <div class="service-icon">
-                                <img src="@(FieldNames.ImageFolder + itemMasala.imgpath)" alt="@itemMasala.description" onerror="loanNoImage(this);" />
+            <div class="row" id="divMasalaBenefits">
+                @*@foreach (var itemMasala in Model.MasalaBenefits)
+                    {
+                        <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.0s">
+                            <div class="service-item">
+                                <div class="service-icon">
+                                    <img src="@(FieldNames.ImageFolder + itemMasala.imgpath)" alt="@itemMasala.description" onerror="loanNoImage(this);" />
+                                </div>
+                                <h3>@itemMasala.description</h3>
+                                <p>@itemMasala.subdescription</p>
                             </div>
-                            <h3>@itemMasala.description</h3>
-                            <p>@itemMasala.subdescription</p>
                         </div>
-                    </div>
-                }
+                    }*@
             </div>
         </div>
     </div>
 }
 <!-- MasalaBenefits End -->
+
+@section ScriptsBottom {
+    <script>
+
+        $(document).ready(function () {
+            loadMasalaBenefits('@strMasalaBenefitsJson');
+            loadHomeProducts('@strHomeProductsJson');
+        });
+
+    </script>
+}

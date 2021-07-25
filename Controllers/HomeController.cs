@@ -36,6 +36,7 @@ namespace RShreeji.Controllers
                     lstProducts = lstProducts.OrderBy(a => a.sortorder ?? 999).ToList();
                 }
                 objHomeVM.MasalaBenefits = lstProducts;
+                ViewBag.MasalaBenefitsJson = jsonString;
             }
             #endregion MASALA BENEFITS
 
@@ -49,6 +50,7 @@ namespace RShreeji.Controllers
                     lstProducts = lstProducts.OrderBy(a => a.sortorder ?? 999).ToList();
                 }
                 objHomeVM.Products = lstProducts;
+                ViewBag.HomeProductsJson = jsonString;
             }
             #endregion PRODUCTS
 

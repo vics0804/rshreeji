@@ -124,3 +124,91 @@ function loadGallery(encodedGalleryJson) {
         });
     }
 }
+
+/**
+ * This function is used to load MASALA BENEFIT in Home page
+ * @param {string} encodedMasalaBenefitJson - Encoded Masala Benefit JSON
+ */
+function loadMasalaBenefits(encodedMasalaBenefitJson) {
+    let MasalaBenefitJSON = GetJsonFromStringVariable(encodedMasalaBenefitJson, "ASC");
+    if ($.trim(MasalaBenefitJSON) != "") {
+        // convert json to HTML and append in page
+        $(MasalaBenefitJSON).each(function (index, elem) {
+            $("#divMasalaBenefits").append(
+                $('<div/>', { 'class': 'col-lg-4 col-md-6 wow fadeInUp', 'data-wow-delay': '0.0s' }).append(
+                    $('<div/>', { 'class': 'service-item' }).append(
+                        $('<div/>', { 'class': 'service-icon' }).append(
+                            $('<img/>', { 'src': defaultImgFolderPath + elem.imgpath, 'alt': elem.description })
+                        )
+                    ).append(
+                        $('<h2/>', { 'text': elem.description })
+                    ).append(
+                        $('<p/>', { 'text': elem.subdescription })
+                    )
+                )
+            )
+        });
+    }
+}
+
+/**
+ * This function is used to load PRODUCTS in Home page
+ * @param {string} encodedHomeProductsJson - Encoded Home Products JSON
+ */
+function loadHomeProducts(encodedHomeProductsJson) {
+    let HomeProductsJSON = GetJsonFromStringVariable(encodedHomeProductsJson, "ASC");
+    if ($.trim(HomeProductsJSON) != "") {
+        // convert json to HTML and append in page
+        $.when(
+            $(HomeProductsJSON).each(function (index, elem) {
+                $("#divHomeProducts").append(
+                    $('<div/>', { 'class': 'blog-item' }).append(
+                        $('<div/>', { 'class': 'blog-img' }).append(
+                            $('<img/>', { 'src': defaultImgFolderPath + elem.imgpath, 'alt': elem.description })
+                        )
+                    ).append(
+                        $('<div/>', { 'class': 'blog-text' }).append(
+                            $("<h2/>", { 'text': elem.description })
+                        ).append(
+                            $("<div/>", { 'class': 'blog-meta' }).append(
+                                $("<p/>", { 'text': elem.subdescription }).prepend(
+                                    $("<i/>", { 'class': 'far fa-list-alt' })
+                                )
+                            )
+                        ).append(
+                            $('<a/>', { 'class': 'btn', 'href': ProductsUrl, 'text': 'View All Products ' }).append(
+                                $('<i/>', { 'class': 'fa fa-angle-right' })
+                            )
+                        )
+                    )
+                )
+            })
+        ).then(function () {
+            // Blogs carousel
+            $(".blog-carousel").owlCarousel({
+                autoplay: true,
+                dots: false,
+                loop: true,
+                nav: true,
+                navText: [
+                    '<i class="fa fa-angle-left" aria-hidden="true"></i>',
+                    '<i class="fa fa-angle-right" aria-hidden="true"></i>'
+                ],
+                responsive: {
+                    0: {
+                        items: 1
+                    },
+                    576: {
+                        items: 1
+                    },
+                    768: {
+                        items: 2
+                    },
+                    992: {
+                        items: 3
+                    }
+                }
+            })
+        });
+    }
+}
