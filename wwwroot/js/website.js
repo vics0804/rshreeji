@@ -57,6 +57,27 @@ function GetJsonFromStringVariable(encodedStrJson) {
 }
 
 /**
+ * This function is used to check if any image exists at url or not
+ * @param {string} image_url - image url
+ * @param {number} [no_imgage_no=0] - no image number. default is 0 (zero)
+ */
+function getViewImage(image_url, no_imgage_no = 0) {
+    let http = new XMLHttpRequest();
+    http.open('HEAD', strRootUrl + image_url, false);
+    http.send();
+
+    if (http.status != 404) {
+        return image_url;
+    }
+    else if (no_imgage_no == 0) {
+        return no_image_0_url
+    }
+    else if (no_imgage_no == 1) {
+        return no_image_1_url
+    }
+}
+
+/**
  * This function is used to load PRODUCTS in Products page
  * @param {object} ProductJSON - Products JSON Array
  */
@@ -71,7 +92,7 @@ function loadProducts(ProductJSON) {
                 $('<div/>', { 'class': 'col-lg-3 col-md-6 wow fadeInUp', 'data-wow-delay': '0.0s' }).append(
                     $('<div/>', { 'class': 'team-item px-0 pt-0' }).append(
                         $('<div/>', { 'class': 'team-img' }).append(
-                            $('<img/>', { 'src': defaultImgFolderPath + GetThumbImgPath(elem.imgpath), 'alt': elem.description })
+                            $('<img/>', { 'src': getViewImage(defaultImgFolderPath + GetThumbImgPath(elem.imgpath), 0), 'alt': elem.description })
                         )
                     ).append(
                         $('<div/>', { 'class': 'team-text' }).append(
@@ -128,8 +149,8 @@ function loadGallery(GalleryJSON) {
                 $("#divGallery .portfolio-container").append(
                     $('<div/>', { 'class': 'col-lg-4 col-md-6 col-sm-12 portfolio-item ' + elem.classname + ' wow fadeInUp', 'data-wow-delay': '0.1s' }).append(
                         $('<div/>', { 'class': 'portfolio-wrap' }).append(
-                            $('<a/>', { 'href': defaultImgFolderPath + elem.imgpath, 'data-lightbox': 'portfolio' }).append(
-                                $('<img/>', { 'src': defaultImgFolderPath + GetThumbImgPath(elem.imgpath), 'alt': elem.description })
+                            $('<a/>', { 'href': getViewImage(defaultImgFolderPath + elem.imgpath, 0), 'data-lightbox': 'portfolio' }).append(
+                                $('<img/>', { 'src': getViewImage(defaultImgFolderPath + GetThumbImgPath(elem.imgpath), 0), 'alt': elem.description })
                             )
                         )
                     )
@@ -186,7 +207,7 @@ function loadMasalaBenefits(MasalaBenefitJSON) {
                 $('<div/>', { 'class': 'col-lg-4 col-md-6 wow fadeInUp', 'data-wow-delay': '0.0s' }).append(
                     $('<div/>', { 'class': 'service-item' }).append(
                         $('<div/>', { 'class': 'service-icon' }).append(
-                            $('<img/>', { 'src': defaultImgFolderPath + elem.imgpath, 'alt': elem.description })
+                            $('<img/>', { 'src': getViewImage(defaultImgFolderPath + elem.imgpath, 0), 'alt': elem.description })
                         )
                     ).append(
                         $('<h2/>', { 'text': elem.description })
@@ -232,7 +253,7 @@ function loadHomeProducts(HomeProductsJSON) {
                 $("#divHomeProducts").append(
                     $('<div/>', { 'class': 'blog-item' }).append(
                         $('<div/>', { 'class': 'blog-img' }).append(
-                            $('<img/>', { 'src': defaultImgFolderPath + elem.imgpath, 'alt': elem.description })
+                            $('<img/>', { 'src': getViewImage(defaultImgFolderPath + elem.imgpath, 1), 'alt': elem.description })
                         )
                     ).append(
                         $('<div/>', { 'class': 'blog-text' }).append(
