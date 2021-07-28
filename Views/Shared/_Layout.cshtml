@@ -2,7 +2,7 @@
 @inject Microsoft.Extensions.Options.IOptions<SystemSettings> SysSetting
 @{
     string strPagePath = Context.Request.Path;
-    string strHostUrl = $"{Context.Request.Scheme}://{Context.Request.Host.ToUriComponent()}{Context.Request.PathBase.ToUriComponent()}";
+    //string strHostUrl = $"{Context.Request.Scheme}://{Context.Request.Host.ToUriComponent()}{Context.Request.PathBase.ToUriComponent()}";
 }
 
 <!DOCTYPE html>
@@ -35,7 +35,7 @@
         var defaultImgFolderPath = '@FieldNames.ImageFolder',
             no_image_0_url = defaultImgFolderPath + '@SysSetting.Value.noimg',
             no_image_1_url = defaultImgFolderPath + '@SysSetting.Value.noimg1',
-            strRootUrl = '@strHostUrl';
+            strRootUrl = window.location.origin;
     </script>
 
     @RenderSection("ScriptsHead", required: false)
